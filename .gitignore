@@ -1,0 +1,22 @@
+# Local-only material: submissions, evidence, snapshots, forms with personal info
+_local/
+
+# Office / binary deliverables must never be committed
+*.docx
+*.doc
+*.pdf
+*.pptx
+*.zip
+*.png
+*.jpg
+*.jpeg
+~$*
+
+# Tool & OS state
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.omc/
+.remember/
+.obsidian/

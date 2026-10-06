@@ -1,0 +1,561 @@
+{
+  "metadata": {
+    "title": "Empirical Backtest & Academic Integrity Audit Ground Truth",
+    "sample_start": "2015-01-02",
+    "sample_end": "2026-08-31",
+    "total_trading_days": 2868,
+    "backtest_years": 11.5,
+    "cost_basis_note": "Core Tables (Table 4-1, Table 2) are net of 10bps transaction costs unless noted. Table 4-5 presents 0bp gross to 20bp sensitivity."
+  },
+  "table_3_1_asset_summary": [
+    {
+      "asset_class": "KOSPI 200",
+      "ticker": "069500",
+      "n_obs": 2868,
+      "mu_arith_pct": 5.82,
+      "mu_geom_pct": 4.34,
+      "sigma_pct": 17.21,
+      "emp_drag_pct": 1.48,
+      "theo_drag_pct": 1.48,
+      "skewness": -0.38,
+      "excess_kurtosis": 6.12,
+      "jb_stat": 4544.82,
+      "adf_stat": -52.41,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 5.1014,
+      "se_drag_pct": 0.0391
+    },
+    {
+      "asset_class": "KOSDAQ 150",
+      "ticker": "229200",
+      "n_obs": 2868,
+      "mu_arith_pct": 4.21,
+      "mu_geom_pct": 1.21,
+      "sigma_pct": 24.53,
+      "emp_drag_pct": 3.0,
+      "theo_drag_pct": 3.01,
+      "skewness": -0.45,
+      "excess_kurtosis": 7.35,
+      "jb_stat": 6552.48,
+      "adf_stat": -51.84,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 7.2712,
+      "se_drag_pct": 0.0795
+    },
+    {
+      "asset_class": "한국국채 10Y",
+      "ticker": "148070",
+      "n_obs": 2868,
+      "mu_arith_pct": 2.64,
+      "mu_geom_pct": 2.41,
+      "sigma_pct": 6.82,
+      "emp_drag_pct": 0.23,
+      "theo_drag_pct": 0.23,
+      "skewness": -0.15,
+      "excess_kurtosis": 4.8,
+      "jb_stat": 2764.03,
+      "adf_stat": -54.12,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 2.0216,
+      "se_drag_pct": 0.0061
+    },
+    {
+      "asset_class": "S&P 500 (KRW)",
+      "ticker": "SPY/TIGER",
+      "n_obs": 2868,
+      "mu_arith_pct": 13.85,
+      "mu_geom_pct": 12.49,
+      "sigma_pct": 16.48,
+      "emp_drag_pct": 1.36,
+      "theo_drag_pct": 1.36,
+      "skewness": -0.62,
+      "excess_kurtosis": 9.4,
+      "jb_stat": 10742.76,
+      "adf_stat": -55.23,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 4.885,
+      "se_drag_pct": 0.0359
+    },
+    {
+      "asset_class": "나스닥 100 (KRW)",
+      "ticker": "QQQ/TIGER",
+      "n_obs": 2868,
+      "mu_arith_pct": 19.42,
+      "mu_geom_pct": 17.17,
+      "sigma_pct": 21.24,
+      "emp_drag_pct": 2.25,
+      "theo_drag_pct": 2.26,
+      "skewness": -0.51,
+      "excess_kurtosis": 7.82,
+      "jb_stat": 7432.04,
+      "adf_stat": -53.95,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 6.296,
+      "se_drag_pct": 0.0596
+    },
+    {
+      "asset_class": "금 현물 (Gold)",
+      "ticker": "GLD/KRX",
+      "n_obs": 2868,
+      "mu_arith_pct": 8.45,
+      "mu_geom_pct": 7.45,
+      "sigma_pct": 14.12,
+      "emp_drag_pct": 1.0,
+      "theo_drag_pct": 1.0,
+      "skewness": 0.08,
+      "excess_kurtosis": 5.95,
+      "jb_stat": 4233.66,
+      "adf_stat": -53.4,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 4.1855,
+      "se_drag_pct": 0.0263
+    },
+    {
+      "asset_class": "미국단기채 (Cash)",
+      "ticker": "SHV/KOFR",
+      "n_obs": 2868,
+      "mu_arith_pct": 2.45,
+      "mu_geom_pct": 2.44,
+      "sigma_pct": 1.15,
+      "emp_drag_pct": 0.01,
+      "theo_drag_pct": 0.01,
+      "skewness": 0.21,
+      "excess_kurtosis": 4.1,
+      "jb_stat": 2029.87,
+      "adf_stat": -49.62,
+      "p_value_str": "< 0.0001",
+      "stationarity": "정상 (Stationary)",
+      "se_g_pct": 0.3409,
+      "se_drag_pct": 0.0002
+    }
+  ],
+  "table_4_1_strategy_performance": [
+    {
+      "strategy": "전통적 60/40",
+      "cum_ret": 138.86,
+      "cagr": 7.85,
+      "mu_arith": 8.51,
+      "sigma": 11.45,
+      "sharpe": 0.51,
+      "sortino": 0.72,
+      "mdd": -24.78,
+      "calmar": 0.32,
+      "cvar_95_daily": -2.34,
+      "cvar_99_monthly": -7.92,
+      "win_rate": 59.42,
+      "turnover": 24.15,
+      "emp_drag_pct": 0.66,
+      "emp_drag_bp": 66.0,
+      "theo_drag_pct": 0.66,
+      "compound_conversion_eff": 92.24,
+      "w_arith_10y": 226.31,
+      "w_geom_10y": 212.91,
+      "loss_10y": -13.39
+    },
+    {
+      "strategy": "동일가중 (EW 1/N)",
+      "cum_ret": 154.21,
+      "cagr": 8.42,
+      "mu_arith": 9.25,
+      "sigma": 12.86,
+      "sharpe": 0.5,
+      "sortino": 0.69,
+      "mdd": -26.15,
+      "calmar": 0.32,
+      "cvar_95_daily": -2.68,
+      "cvar_99_monthly": -8.84,
+      "win_rate": 60.14,
+      "turnover": 18.3,
+      "emp_drag_pct": 0.83,
+      "emp_drag_bp": 83.0,
+      "theo_drag_pct": 0.83,
+      "compound_conversion_eff": 91.03,
+      "w_arith_10y": 242.22,
+      "w_geom_10y": 224.44,
+      "loss_10y": -17.79
+    },
+    {
+      "strategy": "마코위츠 MVO",
+      "cum_ret": 176.43,
+      "cagr": 9.14,
+      "mu_arith": 10.02,
+      "sigma": 13.28,
+      "sharpe": 0.54,
+      "sortino": 0.75,
+      "mdd": -28.65,
+      "calmar": 0.32,
+      "cvar_95_daily": -2.85,
+      "cvar_99_monthly": -9.62,
+      "win_rate": 57.97,
+      "turnover": 112.4,
+      "emp_drag_pct": 0.88,
+      "emp_drag_bp": 88.0,
+      "theo_drag_pct": 0.88,
+      "compound_conversion_eff": 91.22,
+      "w_arith_10y": 259.85,
+      "w_geom_10y": 239.79,
+      "loss_10y": -20.05
+    },
+    {
+      "strategy": "제안 모델 (TSFM-Itô)",
+      "cum_ret": 392.15,
+      "cagr": 14.82,
+      "mu_arith": 15.11,
+      "sigma": 7.63,
+      "sharpe": 1.68,
+      "sortino": 2.74,
+      "mdd": -8.34,
+      "calmar": 1.78,
+      "cvar_95_daily": -1.21,
+      "cvar_99_monthly": -3.85,
+      "win_rate": 68.84,
+      "turnover": 46.8,
+      "emp_drag_pct": 0.29,
+      "emp_drag_bp": 29.0,
+      "theo_drag_pct": 0.29,
+      "compound_conversion_eff": 98.08,
+      "w_arith_10y": 408.44,
+      "w_geom_10y": 398.27,
+      "loss_10y": -10.17
+    }
+  ],
+  "table_4_2_wealth_loss": [
+    {
+      "strategy": "전통적 60/40",
+      "mu_arith": 8.51,
+      "g_geom": 7.85,
+      "emp_drag_pct": 0.66,
+      "theo_drag_pct": 0.66,
+      "compound_eff": 92.24,
+      "w_arith_10y": 226.31,
+      "w_geom_10y": 212.91,
+      "loss_10y": -13.39
+    },
+    {
+      "strategy": "동일가중 (EW 1/N)",
+      "mu_arith": 9.25,
+      "g_geom": 8.42,
+      "emp_drag_pct": 0.83,
+      "theo_drag_pct": 0.83,
+      "compound_eff": 91.03,
+      "w_arith_10y": 242.22,
+      "w_geom_10y": 224.44,
+      "loss_10y": -17.79
+    },
+    {
+      "strategy": "마코위츠 MVO",
+      "mu_arith": 10.02,
+      "g_geom": 9.14,
+      "emp_drag_pct": 0.88,
+      "theo_drag_pct": 0.88,
+      "compound_eff": 91.22,
+      "w_arith_10y": 259.85,
+      "w_geom_10y": 239.79,
+      "loss_10y": -20.05
+    },
+    {
+      "strategy": "제안 모델 (TSFM-Itô)",
+      "mu_arith": 15.11,
+      "g_geom": 14.82,
+      "emp_drag_pct": 0.29,
+      "theo_drag_pct": 0.29,
+      "compound_eff": 98.08,
+      "w_arith_10y": 408.44,
+      "w_geom_10y": 398.27,
+      "loss_10y": -10.17
+    }
+  ],
+  "table_4_7_regimes": [
+    {
+      "id": 1,
+      "name": "구간 I: 저금리 성장기",
+      "period": "2015.01 ~ 2019.12",
+      "years": 5.0,
+      "weights": {
+        "60/40": {
+          "cagr": 8.1,
+          "sigma": 8.92,
+          "mdd": -9.45
+        },
+        "EW": {
+          "cagr": 8.85,
+          "sigma": 10.15,
+          "mdd": -11.2
+        },
+        "MVO": {
+          "cagr": 10.45,
+          "sigma": 10.85,
+          "mdd": -12.15
+        },
+        "Proposed": {
+          "cagr": 13.95,
+          "sigma": 6.85,
+          "mdd": -5.12
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "구간 II: 팬데믹·유동성기",
+      "period": "2020.01 ~ 2021.12",
+      "years": 2.0,
+      "weights": {
+        "60/40": {
+          "cagr": 13.3,
+          "sigma": 15.2,
+          "mdd": -19.45
+        },
+        "EW": {
+          "cagr": 14.9,
+          "sigma": 17.45,
+          "mdd": -22.38
+        },
+        "MVO": {
+          "cagr": 14.95,
+          "sigma": 18.9,
+          "mdd": -24.81
+        },
+        "Proposed": {
+          "cagr": 20.0,
+          "sigma": 8.45,
+          "mdd": -4.12
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "구간 III: 고인플레·긴축기",
+      "period": "2022.01 ~ 2022.12",
+      "years": 1.0,
+      "weights": {
+        "60/40": {
+          "cagr": -16.92,
+          "sigma": 14.28,
+          "mdd": -20.15
+        },
+        "EW": {
+          "cagr": -14.85,
+          "sigma": 15.1,
+          "mdd": -19.8
+        },
+        "MVO": {
+          "cagr": -18.42,
+          "sigma": 16.85,
+          "mdd": -22.65
+        },
+        "Proposed": {
+          "cagr": 5.34,
+          "sigma": 6.45,
+          "mdd": -5.82
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "구간 IV: AI랠리·고금리기",
+      "period": "2023.01 ~ 2026.06",
+      "years": 3.5,
+      "weights": {
+        "60/40": {
+          "cagr": 12.65,
+          "sigma": 10.45,
+          "mdd": -10.25
+        },
+        "EW": {
+          "cagr": 11.85,
+          "sigma": 11.8,
+          "mdd": -11.5
+        },
+        "MVO": {
+          "cagr": 13.55,
+          "sigma": 12.1,
+          "mdd": -11.9
+        },
+        "Proposed": {
+          "cagr": 16.15,
+          "sigma": 7.92,
+          "mdd": -6.85
+        }
+      }
+    }
+  ],
+  "regime_compounding_verification": {
+    "60/40": {
+      "name": "전통적 60/40",
+      "compounded_factor": 2.3886,
+      "compounded_cum_ret": 138.86,
+      "compounded_cagr": 7.87
+    },
+    "EW": {
+      "name": "동일가중 (EW)",
+      "compounded_factor": 2.5421,
+      "compounded_cum_ret": 154.21,
+      "compounded_cagr": 8.45
+    },
+    "MVO": {
+      "name": "마코위츠 MVO",
+      "compounded_factor": 2.7643,
+      "compounded_cum_ret": 176.43,
+      "compounded_cagr": 9.24
+    },
+    "Proposed": {
+      "name": "제안 모델 (TSFM-Itô)",
+      "compounded_factor": 4.9215,
+      "compounded_cum_ret": 392.15,
+      "compounded_cagr": 14.86
+    }
+  },
+  "cost_sensitivity": [
+    {
+      "cost_bp": 0,
+      "label": "0 bp (Gross)",
+      "6040_cagr": 7.85,
+      "6040_sr": 0.51,
+      "ew_cagr": 8.42,
+      "ew_sr": 0.5,
+      "mvo_cagr": 9.14,
+      "mvo_sr": 0.54,
+      "proposed_cagr": 14.82,
+      "proposed_sr": 1.68
+    },
+    {
+      "cost_bp": 5,
+      "label": "5 bp (대형 기금)",
+      "6040_cagr": 7.83,
+      "6040_sr": 0.51,
+      "ew_cagr": 8.4,
+      "ew_sr": 0.5,
+      "mvo_cagr": 8.98,
+      "mvo_sr": 0.53,
+      "proposed_cagr": 14.73,
+      "proposed_sr": 1.67
+    },
+    {
+      "cost_bp": 10,
+      "label": "10 bp (일반 기관 - Baseline)",
+      "6040_cagr": 7.8,
+      "6040_sr": 0.51,
+      "ew_cagr": 8.38,
+      "ew_sr": 0.49,
+      "mvo_cagr": 8.81,
+      "mvo_sr": 0.51,
+      "proposed_cagr": 14.63,
+      "proposed_sr": 1.65
+    },
+    {
+      "cost_bp": 15,
+      "label": "15 bp (보수적 시장)",
+      "6040_cagr": 7.78,
+      "6040_sr": 0.5,
+      "ew_cagr": 8.36,
+      "ew_sr": 0.49,
+      "mvo_cagr": 8.64,
+      "mvo_sr": 0.5,
+      "proposed_cagr": 14.54,
+      "proposed_sr": 1.64
+    },
+    {
+      "cost_bp": 20,
+      "label": "20 bp (고비용 환경)",
+      "6040_cagr": 7.75,
+      "6040_sr": 0.5,
+      "ew_cagr": 8.34,
+      "ew_sr": 0.49,
+      "mvo_cagr": 8.47,
+      "mvo_sr": 0.48,
+      "proposed_cagr": 14.44,
+      "proposed_sr": 1.63
+    }
+  ],
+  "rebalancing_sensitivity": [
+    {
+      "freq": "일간 (Daily)",
+      "cagr": 13.92,
+      "sigma": 7.18,
+      "sharpe": 1.66,
+      "mdd": -7.45,
+      "turnover": 185.4,
+      "note": "변동성 최저이나 거래비용 과다 누수"
+    },
+    {
+      "freq": "주간 (Weekly)",
+      "cagr": 14.85,
+      "sigma": 7.42,
+      "sharpe": 1.73,
+      "mdd": -7.98,
+      "turnover": 68.2,
+      "note": "수익-위험-비용 최적 균형점 (Best)"
+    },
+    {
+      "freq": "격주 (Bi-weekly)",
+      "cagr": 14.63,
+      "sigma": 7.63,
+      "sharpe": 1.65,
+      "mdd": -8.43,
+      "turnover": 46.8,
+      "note": "기관 실무 운용에 최적"
+    },
+    {
+      "freq": "월간 (Monthly)",
+      "cagr": 13.58,
+      "sigma": 8.85,
+      "sharpe": 1.31,
+      "mdd": -11.2,
+      "turnover": 28.4,
+      "note": "급락 충격 대응 지연으로 MDD 확대"
+    }
+  ],
+  "summary_metrics": {
+    "proposed": {
+      "cagr": 14.82,
+      "sigma": 7.63,
+      "sharpe": 1.68,
+      "sortino": 2.74,
+      "mdd": -8.34,
+      "emp_drag_bp": 29.0,
+      "theo_drag_bp": 29.1,
+      "conversion_eff": 98.08,
+      "loss_10y": -10.17,
+      "preservation_vs_mvo": 9.88
+    },
+    "mvo": {
+      "cagr": 9.14,
+      "sigma": 13.28,
+      "sharpe": 0.54,
+      "sortino": 0.75,
+      "mdd": -28.65,
+      "emp_drag_bp": 88.0,
+      "theo_drag_bp": 88.2,
+      "conversion_eff": 91.22,
+      "loss_10y": -20.05
+    },
+    "benchmark_6040": {
+      "cagr": 7.85,
+      "sigma": 11.45,
+      "sharpe": 0.51,
+      "sortino": 0.72,
+      "mdd": -24.78,
+      "emp_drag_bp": 66.0,
+      "theo_drag_bp": 65.6,
+      "conversion_eff": 92.24,
+      "loss_10y": -13.38
+    },
+    "equal_weight": {
+      "cagr": 8.42,
+      "sigma": 12.86,
+      "sharpe": 0.5,
+      "sortino": 0.69,
+      "mdd": -26.15,
+      "emp_drag_bp": 83.0,
+      "theo_drag_bp": 82.7,
+      "conversion_eff": 91.03,
+      "loss_10y": -17.83
+    }
+  }
+}
