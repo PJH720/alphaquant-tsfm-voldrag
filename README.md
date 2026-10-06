@@ -47,7 +47,7 @@
 
 | | 본 저장소 (발표용) | 실데이터 재현 저장소 (후속 과제) |
 |---|---|---|
-| 저장소 | `PJH720/alphaquant-tsfm-voldrag` | `PJH720/alphaquant-tsfm-voldrag-empirical` (준비 중) |
+| 저장소 | `PJH720/alphaquant-tsfm-voldrag` | [`PJH720/alphaquant-tsfm-voldrag-empirical`](https://github.com/PJH720/alphaquant-tsfm-voldrag-empirical) |
 | 수치 출처 | 시뮬레이션 파라미터 + 해석적 계산 + GBM 몬테카를로 | 원시 시장 데이터 (지수·ETF 수정주가, FRED 거시지표) |
 | 모델 | 이론·수식 정식화 | Chronos 제로샷 예측, 이토-켈리 CVaR QP, 오토인코더 세이프가드 실제 구현 |
 | 원칙 | 본선 심사본과 동일한 수치 유지 | 하이퍼파라미터 사전 등록, 결과가 논문과 달라도 그대로 보고 |
