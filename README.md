@@ -66,6 +66,7 @@ scripts/
   simulate_gbm_mc.py                                         파라미터 기반 GBM 몬테카를로 (10,000 경로)
   verify_integrity.py                                        수식·표·시뮬레이션·문서 간 정합성 감사 (읽기 전용)
   build_full_30p_final.py                                    30P 원문 → Word 빌드 (pandoc)
+  export_web_bundle.py                                       제출본 시뮬레이션 수치 → web_export/submission_simulation.json (시연 사이트용)
 audit/
   verification_ledger.md                                     최종 감사 원장 (판정 기준 문서)
   verification_report_at_261003_2147.md                      1차 감사 보고서
@@ -91,6 +92,9 @@ uv run --with-requirements requirements.txt python scripts/calculate_empirical_m
 
 # 30P 원문을 Word로 빌드 (출력: _local/submissions/, git 제외)
 uv run python scripts/build_full_30p_final.py
+
+# 제출본 시뮬레이션 수치를 시연 사이트용 JSON 하나로 내보내기 (표준 라이브러리만 사용) → web_export/submission_simulation.json
+uv run python scripts/export_web_bundle.py
 ```
 
 수치를 수정할 때는 `data/backtest_results.json` → `paper/` 각 원고 순으로 반영한 뒤 감사를 다시 실행한다.
