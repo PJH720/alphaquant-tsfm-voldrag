@@ -43,7 +43,7 @@ A workspace hook blocks bare `python3`, so always use `uv run` (currently Python
 # GBM Monte Carlo from the simulation parameters (writes data/simulation_results.json)
 uv run --with-requirements requirements.txt python scripts/simulate_gbm_mc.py
 
-# Read-only integrity audit (stdlib only). Expected: 48 PASSED, 0 FAILED (test 7 needs simulation_results.json)
+# Read-only integrity audit (stdlib only). Expected: 48 PASSED, 0 FAILED with the 30P docx built, 46 PASSED + docx SKIP on a fresh clone (test 7 needs simulation_results.json)
 uv run python scripts/verify_integrity.py
 
 # Regenerate data/backtest_results.json from the hardcoded constants (OVERWRITES the JSON)
@@ -83,7 +83,7 @@ data/backtest_results.json                         single source of truth for ev
 - Correspondence with the organizers (`보낸 이메일 1–8`, `이메일 안내 1–4차`) and the final corrected `[AlphaQuant]_Final_Paper_30P.docx`.
 - `Overleaf Beamer/`: LaTeX Beamer templates for the presentation slides.
 
-Do not write into that folder. It is an archive of official correspondence.
+Do not write into that folder. It is an archive of official correspondence. It is a macOS iCloud path: on the Linux checkout neither it nor `_local/` exists, so anything that depends on them (the judged docx, forms, `build_full_30p_final.py` output) has to be found on the Mac or rebuilt.
 
 ## Current phase (as of 2026-10-07)
 
