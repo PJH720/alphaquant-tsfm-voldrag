@@ -16,6 +16,10 @@ Git repo (private GitHub) with no test suite; plain Python run through `uv` (dep
 
 ## ⚠️ Evidence status: read before quoting any number
 
+**Official framing (since 2026-10-07):** "본 연구의 수치는 시뮬레이션 파라미터 기반이며, 실데이터 재현은 후속 과제". Strategy μ/σ are simulation parameters; CAGR/drag/wealth-loss are analytic implications; `scripts/simulate_gbm_mc.py` runs a GBM Monte Carlo (10,000 paths, seed 20261007) from them → `data/simulation_results.json`. Crisis-episode figures (2020/2022, safeguard trigger dates, cost/rebalancing sensitivity) are **illustrative scenario narrative**: never call them simulation output or historical backtest. Presentation wording and Q&A answers live in `docs/presentation_disclosure.md`; keep README, that doc and slides consistent.
+
+**Two repositories:** this repo (`PJH720/alphaquant-tsfm-voldrag`) keeps the judged figures; `PJH720/alphaquant-tsfm-voldrag-empirical` (in `~/dev/`, planned) reproduces the framework from raw market data with pre-registered hyperparameters and reports results as-is. Never copy numbers between them or tune the empirical repo toward the paper.
+
 `audit/verification_ledger.md` is the authoritative audit. Its verdict:
 
 - `data/backtest_results.json` is produced by `scripts/calculate_empirical_metrics.py` from **hardcoded input constants** (μ, σ, skew, kurtosis per asset and strategy). The repo has **no** raw price data, TSFM checkpoints, autoencoder or QP code, or bootstrap output.
@@ -36,7 +40,10 @@ Git repo (private GitHub) with no test suite; plain Python run through `uv` (dep
 A workspace hook blocks bare `python3`, so always use `uv run` (currently Python 3.12). Scripts in `scripts/` resolve paths relative to the repo (`Path(__file__).resolve().parents[1]`), so they run from any cwd.
 
 ```bash
-# Read-only integrity audit (stdlib only). Expected: 47 PASSED, 0 FAILED
+# GBM Monte Carlo from the simulation parameters (writes data/simulation_results.json)
+uv run --with-requirements requirements.txt python scripts/simulate_gbm_mc.py
+
+# Read-only integrity audit (stdlib only). Expected: 48 PASSED, 0 FAILED (test 7 needs simulation_results.json)
 uv run python scripts/verify_integrity.py
 
 # Regenerate data/backtest_results.json from the hardcoded constants (OVERWRITES the JSON)

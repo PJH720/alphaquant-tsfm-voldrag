@@ -261,6 +261,29 @@ def test_docx_and_submission_specs():
     check("거래비용" in text_30p and "회전율" in text_30p,
           "Transaction cost & turnover dynamics specified")
 
+def test_monte_carlo_simulation():
+    print("\n" + "=" * 80)
+    print("TEST 7: GBM Monte Carlo consistency (scripts/simulate_gbm_mc.py)")
+    print("Check: |MC mean log-growth - (mu - 0.5*sigma^2)| <= 3 * MC standard error")
+    print("=" * 80)
+
+    sim_path = BASE_DIR / "data/simulation_results.json"
+    if not sim_path.exists():
+        check(False, "Simulation results present",
+              "Run: uv run --with-requirements requirements.txt python scripts/simulate_gbm_mc.py")
+        return
+
+    with open(sim_path, "r", encoding="utf-8") as f:
+        sim = json.load(f)
+
+    worst = max(
+        abs(r["mc_g_mean_pct"] - r["theoretical_g_pct"]) / r["mc_g_se_pct"]
+        for r in sim["strategies"].values()
+    )
+    check(worst <= 3.0, "MC mean growth matches Ito growth for all strategies",
+          f"Worst deviation = {worst:.2f} SE (n_paths={sim['metadata']['n_paths']})")
+
+
 def main():
     print("=" * 80)
     print("ACADEMIC AUDITOR INTEGRITY VERIFICATION SUITE")
@@ -272,7 +295,8 @@ def main():
     test_macro_regimes_compounding()
     test_safe_vector_dimension()
     test_docx_and_submission_specs()
-    
+    test_monte_carlo_simulation()
+
     print("\n" + "=" * 80)
     print(f"AUDIT SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
     print("=" * 80)
