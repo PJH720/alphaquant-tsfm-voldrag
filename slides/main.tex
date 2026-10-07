@@ -1,0 +1,83 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+\mode<presentation> {
+  \usetheme[compress]{Berlin}
+  \usecolortheme{beaver}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{footline}[frame number]
+}
+
+\makeatletter
+\beamer@theme@subsectionfalse
+\makeatother
+
+\usepackage{fontspec}
+\IfFontExistsTF{Noto Sans KR}{
+  \setsansfont{Noto Sans KR}[BoldFont=* Bold]
+  \setmainfont{Noto Sans KR}[BoldFont=* Bold]
+}{
+  \IfFileExists{/Library/Fonts/NotoSansKR-Regular.otf}{
+    \setsansfont{NotoSansKR-Regular.otf}[Path=/Library/Fonts/, BoldFont=NotoSansKR-Bold.otf]
+    \setmainfont{NotoSansKR-Regular.otf}[Path=/Library/Fonts/, BoldFont=NotoSansKR-Bold.otf]
+  }{
+    \setsansfont{Noto Sans CJK KR}
+    \setmainfont{Noto Sans CJK KR}
+  }
+}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,decorations.pathreplacing,shapes.geometric}
+\usepackage{natbib}
+\bibliographystyle{apalike}
+
+\usepackage{hyperref}
+\hypersetup{
+  urlcolor=blue,
+  colorlinks=true,
+  linkcolor=darkred,
+  citecolor=darkred
+}
+
+\setbeamersize{text margin left=.6cm, text margin right=.6cm}
+
+% Color definitions
+\definecolor{sogangred}{RGB}{178,34,34}
+\definecolor{darkblue}{RGB}{25,25,112}
+\definecolor{darkgreen}{RGB}{34,139,34}
+\definecolor{boxgold}{RGB}{218,165,32}
+
+% Presentation note macros
+\newcommand{\simnote}{\par\vfill\tiny \textbf{주:} 제출본 수치는 \textbf{시뮬레이션 파라미터 기반}이며 실측 백테스트가 아님. 실데이터 검증 결과는 `실데이터 검증' 슬라이드 참조.}
+\newcommand{\scenarionote}{\par\vfill\tiny \textbf{주:} 제출본의 위기 국면 서술은 \textbf{예시 시나리오}임. 실데이터에서는 2020-02-03 첫 발동, 구간 MDD $-4.65\%$.}
+\newcommand{\realnote}{\par\vfill\tiny \textbf{출처:} 사전등록 재현 저장소 alphaquant-tsfm-voldrag-empirical, 2017-01$\sim$2026-08 외표본, 거래비용 10bp.}
+
+% Title page
+\title[이토 $\times$ TSFM 동적 자산배분]{이토 보조정리와 시계열 파운데이션 모델을 결합한\\동적 자산배분 및 변동성 항력(Volatility Drag) 제어 프레임워크}
+\subtitle{산업 비파괴검사(NDE) 기반 비지도 꼬리위험 세이프가드를 중심으로}
+
+\author[박재현 · 강명서]{박재현 (대표자) \quad \textbf{강명서 (발표자)}}
+\institute[서강대학교]{서강대학교 경제대학 경제학과 $\cdot$ 팀 알파퀀트}
+\date[2026.10.10]{2026 연합 경제 학술제 본선 $\cdot$ 2026년 10월 10일}
+
+\begin{document}
+
+% CUE 1 | 0:20 | 표지
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\input{Section/0_Outline}
+\input{Section/1_Intro}
+\input{Section/2_Theory}
+\input{Section/3_Method}
+\input{Section/4_Results}
+\input{Section/5_Conclusion}
+
+\appendix
+\input{Section/A_Backup}
+
+\end{document}

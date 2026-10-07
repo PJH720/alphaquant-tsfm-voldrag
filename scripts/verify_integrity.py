@@ -283,6 +283,50 @@ def test_monte_carlo_simulation():
     check(worst <= 3.0, "MC mean growth matches Ito growth for all strategies",
           f"Worst deviation = {worst:.2f} SE (n_paths={sim['metadata']['n_paths']})")
 
+def test_web_export_simulation_bundle():
+    print("\n" + "=" * 80)
+    print("TEST 8: Web Export Simulation Bundle Integrity (scripts/export_web_bundle.py)")
+    print("Check: web_export/submission_simulation.json sync with backtest & MC results")
+    print("=" * 80)
+
+    bundle_path = BASE_DIR / "web_export/submission_simulation.json"
+    if not bundle_path.exists():
+        check(False, "Web export bundle present",
+              "Run: uv run python scripts/export_web_bundle.py")
+        return
+
+    with open(bundle_path, "r", encoding="utf-8") as f:
+        bundle = json.load(f)
+
+    # Check strategies structure
+    strat_keys = list(bundle.get("strategies", {}).keys())
+    expected_strats = ["benchmark_6040", "equal_weight", "mvo", "proposed"]
+    check(strat_keys == expected_strats, "Web export contains all 4 benchmark & proposed strategies",
+          f"Found: {strat_keys}")
+
+    # Check proposed KPIs match backtest_results.json
+    prop_params = bundle["strategies"]["proposed"]["parameters"]
+    prop_analytic = bundle["strategies"]["proposed"]["analytic"]
+    check(prop_params["mu_arith_pct"] == 15.11 and prop_params["sigma_pct"] == 7.63 and prop_params["mdd_pct"] == -8.34,
+          "Web export Proposed parameters match (mu 15.11%, sigma 7.63%, MDD -8.34%)",
+          f"mu={prop_params['mu_arith_pct']}, sigma={prop_params['sigma_pct']}, mdd={prop_params['mdd_pct']}")
+    check(prop_analytic["cagr_pct"] == 14.82 and prop_analytic["sharpe"] == 1.68 and prop_analytic["theo_drag_pct"] == 0.29,
+          "Web export Proposed analytic KPIs match (CAGR 14.82%, Sharpe 1.68, Drag 0.29%p)",
+          f"cagr={prop_analytic['cagr_pct']}, sharpe={prop_analytic['sharpe']}, drag={prop_analytic['theo_drag_pct']}")
+
+    # Check Monte Carlo section against data/simulation_results.json
+    sim_path = BASE_DIR / "data/simulation_results.json"
+    if sim_path.exists():
+        with open(sim_path, "r", encoding="utf-8") as f:
+            sim = json.load(f)
+        sim_prop = sim["strategies"]["제안 모델 (TSFM-Itô)"]
+        bundle_prop_mc = bundle["monte_carlo"]["strategies"]["proposed"]
+        check(bundle_prop_mc["wealth_10y"]["mean"] == sim_prop["wealth_10y"]["ensemble_mean"] and
+              bundle_prop_mc["wealth_10y"]["median"] == sim_prop["wealth_10y"]["median_typical_path"],
+              "Web export MC 10y wealth matches simulation_results.json (mean 451.55억, median 437.87억)",
+              f"Mean={bundle_prop_mc['wealth_10y']['mean']}, Median={bundle_prop_mc['wealth_10y']['median']}")
+
+
 
 def main():
     print("=" * 80)
@@ -296,6 +340,7 @@ def main():
     test_safe_vector_dimension()
     test_docx_and_submission_specs()
     test_monte_carlo_simulation()
+    test_web_export_simulation_bundle()
 
     print("\n" + "=" * 80)
     print(f"AUDIT SUMMARY: {PASS_COUNT} PASSED, {FAIL_COUNT} FAILED")
@@ -310,3 +355,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

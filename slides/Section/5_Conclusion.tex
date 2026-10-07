@@ -1,0 +1,104 @@
+\section{Conclusion}
+
+% CUE 17 | 0:40 | 경제학적 및 정책적 시사점
+\begin{frame}{경제학적 및 정책적 시사점: 공적 연기금 및 퇴직연금 혁신}
+\begin{columns}[T]
+  \begin{column}{0.48\textwidth}
+    \textbf{1. 국민연금(NPS) ALM 거버넌스 개혁}
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \small
+      \item \textbf{산술평균 착시 극복}:
+      기금 고갈 논의에서 연평균 산술수익률 목표치가 복리 자본 잠식을 은폐하는 문제점 극복.
+      \item \textbf{수지적자 국면 자산 강제매각 방지}:
+      지급액이 수입액을 초과할 때 폭락장에서의 자산 헐값 매각을 세이프가드 현금 버퍼로 차단.
+      \item \textbf{`동적 변동성 예산제' 도입}:
+      거시 체제별 동적 허용한도 설정.
+    \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.48\textwidth}
+    \textbf{2. 퇴직연금 디폴트옵션 TDF 알고리즘}
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \small
+      \item \textbf{정적 글라이드패스(Glide Path) 한계}:
+      은퇴 직전 팬데믹·인플레이션 충격 발생 시 자산 보전 불가.
+      \item \textbf{지능형 다운사이드 방어 엔진}:
+      TSFM 조건부 모멘트 예측 및 비지도 오토인코더를 결합하여 은퇴 시점 시퀀스 리스크(Sequence-of-returns Risk) 원천 방어.
+    \end{itemize}
+  \end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{제도적 함의}
+  \small 장기 연기금일수록 산술평균 알파 창출보다 \textbf{변동성 항력 극소화}와 \textbf{꼬리위험 선제 방어}가 기금 소진 시점을 늦추는 가장 결정적인 경제학적 해법임.
+\end{block}
+\end{frame}
+
+% CUE 18 | 0:40 | 결론 및 향후 과제
+\begin{frame}{결론 및 향후 연구 과제 (Conclusion \& Future Work)}
+\textbf{본 연구의 결론 요약}
+\begin{enumerate}
+  \setlength{\itemsep}{3pt}
+  \small
+  \item \textbf{수리금융학적 규명}: 연속 복리 투자에서 변동성 항력($\frac{1}{2}\sigma^2$)의 실체성과 켈리 목적함수($\lambda=1$)의 수리적 필연성을 증명함.
+  \item \textbf{방법론적 융합}: TSFM의 확률 예측과 NDE 비지도 이상탐지를 결합한 독창적 세이프가드 아키텍처 제시.
+  \item \textbf{실데이터 검증과 정직한 보고}: 이론식과 위기 방어 효과는 확인되었으나, 실무 적용을 위해 거래비용 회전율 통제가 필수적임을 사전등록 재현을 통해 규명함.
+\end{enumerate}
+
+\vspace{2mm}
+\begin{columns}[T]
+  \begin{column}{0.65\textwidth}
+    \textbf{향후 연구 과제 (Next Steps)}
+    \begin{itemize}
+      \setlength{\itemsep}{2pt}
+      \scriptsize
+      \item 회전율 페널티($\gamma_{\text{turn}}\|\mathbf{w}_t - \mathbf{w}_{t-1}\|_1$) 목적함수 내재화 및 밴드 리밸런싱 설계.
+      \item 새로운 변형 모델에 대한 추가 사전등록 및 실데이터 검증 진행.
+    \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.33\textwidth}
+    \begin{exampleblock}{서지 정정 안내 (10/5 합의)}
+      \tiny
+      $\cdot$ Hallerbach (2014) 저널/DOI 정정\\
+      $\cdot$ Das et al. (2024, ICML) 쪽수 정정\\
+      $\cdot$ Itô (1951) 정식 원전 문헌 병기
+    \end{exampleblock}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% CUE 19 | 0:10 | 감사합니다 / Q&A
+\begin{frame}{감사합니다 $\cdot$ 질의응답 (Q\&A)}
+\begin{center}
+  \Large \textbf{경청해 주셔서 대단히 감사합니다.}
+  
+  \vspace{3mm}
+  \normalsize 질의응답을 진행하도록 하겠습니다.
+  
+  \vspace{5mm}
+  \begin{columns}[c]
+    \begin{column}{0.35\textwidth}
+      \centering
+      \includegraphics[width=0.65\linewidth]{MyFigure/qr_github.png}\\
+      \vspace{1mm}
+      \scriptsize \textbf{사전등록 재현 GitHub 저장소}\\
+      \tiny \texttt{PJH720/alphaquant-tsfm-voldrag-empirical}
+    \end{column}
+    
+    \begin{column}{0.55\textwidth}
+      \small
+      \begin{itemize}
+        \setlength{\itemsep}{4pt}
+        \item \textbf{연구팀}: 서강대학교 경제대학 팀 알파퀀트
+        \item \textbf{대표자}: 박재현 (\texttt{jhp3822n@sogang.ac.kr})
+        \item \textbf{발표자}: 강명서 (\texttt{audtj5688@gmail.com})
+        \item \textbf{백업 슬라이드 준비}:
+        수식 유도, 계량 통계, 실데이터 전체 성과표, 부트스트랩 검정, 서지 정정 상세
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{center}
+\end{frame}

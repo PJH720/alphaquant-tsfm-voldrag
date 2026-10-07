@@ -43,11 +43,18 @@ A workspace hook blocks bare `python3`, so always use `uv run` (currently Python
 # GBM Monte Carlo from the simulation parameters (writes data/simulation_results.json)
 uv run --with-requirements requirements.txt python scripts/simulate_gbm_mc.py
 
-# Read-only integrity audit (stdlib only). Expected: 48 PASSED, 0 FAILED with the 30P docx built, 46 PASSED + docx SKIP on a fresh clone (test 7 needs simulation_results.json)
+# Read-only integrity audit (stdlib only). Expected: 50 PASSED, 0 FAILED with the 30P docx built, 48 PASSED + docx SKIP on a fresh clone (test 7 needs simulation_results.json, test 8 needs submission_simulation.json)
 uv run python scripts/verify_integrity.py
+
+# Full one-click presentation build pipeline (figures -> XeLaTeX -> notes -> PPTX -> overleaf zip)
+bash scripts/build_presentation.sh
+
+# Verify submission compliance, notes injection, and generate SHA-256 / MD5 checksums
+uv run --with python-pptx --with pymupdf python scripts/package_submission.py
 
 # Regenerate data/backtest_results.json from the hardcoded constants (OVERWRITES the JSON)
 uv run --with-requirements requirements.txt python scripts/calculate_empirical_metrics.py
+
 
 # Safe md → docx compile of the canonical 30P text (writes _local/submissions/[알파퀀트]_박재현_예선보고서_30P.docx)
 uv run python scripts/build_full_30p_final.py

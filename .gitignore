@@ -12,6 +12,26 @@ _local/
 *.jpeg
 ~$*
 
+# Whitelist slide figure assets
+!slides/MyFigure/*.pdf
+!slides/MyFigure/*.png
+
+# LaTeX build artifacts in slides/
+slides/*.aux
+slides/*.bbl
+slides/*.blg
+slides/*.log
+slides/*.nav
+slides/*.out
+slides/*.snm
+slides/*.toc
+slides/main.pdf
+
+# Build output directory
+out/
+
+
+
 # Tool & OS state
 .DS_Store
 __pycache__/

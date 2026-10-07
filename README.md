@@ -51,6 +51,7 @@
 | 수치 출처 | 시뮬레이션 파라미터 + 해석적 계산 + GBM 몬테카를로 | 원시 시장 데이터 (지수·ETF 수정주가, FRED 거시지표) |
 | 모델 | 이론·수식 정식화 | Chronos 제로샷 예측, 이토-켈리 CVaR QP, 오토인코더 세이프가드 실제 구현 |
 | 원칙 | 본선 심사본과 동일한 수치 유지 | 하이퍼파라미터 사전 등록, 결과가 논문과 달라도 그대로 보고 |
+| 시연 사이트 | [제출본 시뮬레이션 모드](https://alphaquant-voldrag-demo.vercel.app) | [실데이터 사전등록 재현 모드](https://alphaquant-voldrag-demo.vercel.app) |
 
 ## 저장소 구조
 
@@ -59,6 +60,11 @@ paper/
   chapters/01_introduction.md … 05_conclusion_and_policy.md   장별 원고
   FINAL_PAPER_CONSOLIDATED.md                                전체 통합본 (~97p)
   FINAL_PAPER_COMPRESSED_30P.md                              심사 규격(25–35p) 제출본 원문 ← 기준 문서
+slides/                                                      학교 공식 Beamer(Berlin/beaver) 발표 슬라이드 소스
+  main.tex, Section/*.tex, Mybib.bib                         XeLaTeX 슬라이드 소스 (16:9 와이드, 26쪽)
+  MyFigure/                                                  벡터 차트 및 QR 코드
+  make_figures.py                                            슬라이드용 벡터 차트 생성 스크립트
+  generate_scripts_and_notes.py                              발표자 대본 및 노트 생성기
 data/backtest_results.json                                   표·본문 수치의 단일 진실 공급원(SSOT, 시뮬레이션 파라미터)
 data/simulation_results.json                                 GBM 몬테카를로 결과
 scripts/
@@ -67,10 +73,17 @@ scripts/
   verify_integrity.py                                        수식·표·시뮬레이션·문서 간 정합성 감사 (읽기 전용)
   build_full_30p_final.py                                    30P 원문 → Word 빌드 (pandoc)
   export_web_bundle.py                                       제출본 시뮬레이션 수치 → web_export/submission_simulation.json (시연 사이트용)
+  build_presentation.sh                                      본선 발표자료 원클릭 전체 빌드 파이프라인
+  package_submission.py                                      제출 파일 무결성·용량·노트 전수 검사 및 해시 출력
 audit/
   verification_ledger.md                                     최종 감사 원장 (판정 기준 문서)
   verification_report_at_261003_2147.md                      1차 감사 보고서
-docs/presentation_disclosure.md                              본선 발표용 수치 성격 고지·질의응답 문안
+docs/
+  presentation_disclosure.md                                 본선 발표용 수치 성격 고지·질의응답 문안
+  presentation_script_cuesheet.md                            14분 상세 발표 대본, 타임라인 큐 시트, 12대 질의응답
+  speaker_pocket_cue_card.md                                 발표자(강명서)용 단면 1장 모바일/인쇄 포켓 큐 카드
+out/                                                         발표 최종 산출물 ([서강대]_알파퀀트_발표자료.pptx, .pdf, zip)
+pdf_to_pptx.py                                               Beamer PDF → PPTX 변환 및 슬라이드 노트 주입기
 archive/legacy_scripts/                                      10/3 분량 캘리브레이션용 일회성 스크립트 (대체됨)
 ```
 
@@ -78,11 +91,17 @@ Word(docx)·PDF 제출물, 증빙자료, 신청서 등은 `.gitignore`로 저장
 
 ## 실행
 
-Python 3.12, [`uv`](https://docs.astral.sh/uv/), [`pandoc`](https://pandoc.org/) 필요.
+Python 3.12, [`uv`](https://docs.astral.sh/uv/), [`pandoc`](https://pandoc.org/), MacTeX/XeLaTeX 필요.
 
 ```bash
-# 정합성 감사 (표준 라이브러리만 사용, 읽기 전용)
+# 정합성 감사 (표준 라이브러리만 사용, 읽기 전용, 50 PASS 체계)
 uv run python scripts/verify_integrity.py
+
+# 본선 발표자료 원클릭 빌드 (차트 생성 → XeLaTeX → 대본 동기화 → PPTX 노트 주입)
+bash scripts/build_presentation.sh
+
+# 최종 제출물 무결성·규격 자동 검사 및 체크섬 산출
+uv run --with python-pptx --with pymupdf python scripts/package_submission.py
 
 # 시뮬레이션 파라미터로부터 GBM 몬테카를로 실행 → data/simulation_results.json
 uv run --with-requirements requirements.txt python scripts/simulate_gbm_mc.py
@@ -93,9 +112,10 @@ uv run --with-requirements requirements.txt python scripts/calculate_empirical_m
 # 30P 원문을 Word로 빌드 (출력: _local/submissions/, git 제외)
 uv run python scripts/build_full_30p_final.py
 
-# 제출본 시뮬레이션 수치를 시연 사이트용 JSON 하나로 내보내기 (표준 라이브러리만 사용) → web_export/submission_simulation.json
+# 제출본 시뮬레이션 수치를 시연 사이트용 JSON 하나로 내보내기 → web_export/submission_simulation.json
 uv run python scripts/export_web_bundle.py
 ```
+
 
 수치를 수정할 때는 `data/backtest_results.json` → `paper/` 각 원고 순으로 반영한 뒤 감사를 다시 실행한다.
 

@@ -1,0 +1,169 @@
+\section{Methodology}
+
+% CUE 8 | 0:50 | 엔드투엔드 전체 시스템 아키텍처
+\begin{frame}{통합 프레임워크: 엔드투엔드 시스템 아키텍처}
+\centering
+\begin{tikzpicture}[
+  node distance=1.1cm and 0.8cm,
+  block/.style={rectangle, draw=darkblue, fill=blue!5, rounded corners=3pt, thick, align=center, font=\scriptsize, inner sep=5pt},
+  guard/.style={rectangle, draw=sogangred, fill=red!5, rounded corners=3pt, thick, align=center, font=\scriptsize, inner sep=5pt},
+  opt/.style={rectangle, draw=darkgreen, fill=green!5, rounded corners=3pt, thick, align=center, font=\scriptsize, inner sep=5pt},
+  line/.style={draw=darkblue, -{Stealth[length=2.5mm]}, thick}
+]
+
+  % Nodes
+  \node[block, text width=2.4cm] (data) {
+    \textbf{1. 데이터 계층}\\
+    KRX ETF 7대 자산\\
+    + 거시 상태변수 12D\\
+    (2,868 거래일)
+  };
+  
+  \node[block, text width=2.8cm, right=of data] (tsfm) {
+    \textbf{2. TSFM 모멘트 추정}\\
+    Chronos / PatchTST\\
+    제로샷 확률 분포 추정\\
+    $\rightarrow$ $\hat{\boldsymbol{\mu}}_t, \hat{\boldsymbol{\sigma}}_t$
+  };
+  
+  \node[block, text width=2.8cm, right=of tsfm] (psd) {
+    \textbf{3. 강건 PSD 복원}\\
+    Ledoit-Wolf 축소\\
+    + Higham 교대 투영\\
+    $\rightarrow$ $\hat{\boldsymbol{\Sigma}}_t \succ 0$
+  };
+  
+  \node[guard, text width=3.8cm, below=0.7cm of tsfm, xshift=1.4cm] (nde) {
+    \textbf{4. 산업 비파괴검사(NDE) 세이프가드}\\
+    비지도 심층 오토인코더 ($12 \rightarrow 8 \rightarrow 4 \rightarrow 8 \rightarrow 12$)\\
+    재구성 오차 $S_t > \tau_t$ 감지 시 $\rightarrow$ 리스크 버퍼 $\beta_t \in [0, 1]$
+  };
+  
+  \node[opt, text width=4.5cm, below=0.7cm of nde] (qp) {
+    \textbf{5. 이토 보정 볼록 2차 계획법 (Convex QP)}\\
+    $\max_{\mathbf{w}} \left[ \mathbf{w}^\top \hat{\boldsymbol{\mu}}_t - \frac{1}{2} \mathbf{w}^\top \hat{\boldsymbol{\Sigma}}_t \mathbf{w} \right]$ s.t. 95\% CVaR 상한\\
+    $\rightarrow$ 최종 실행 가중치: $\mathbf{w}_t^* = (1 - \beta_t)\mathbf{w}_{\text{opt}} + \beta_t \mathbf{e}_{\text{cash}}$
+  };
+
+  % Arrows
+  \path[line] (data) -- (tsfm);
+  \path[line] (tsfm) -- (psd);
+  \path[line] (data.south) |- (nde.west);
+  \path[line] (psd.south) |- (qp.east);
+  \path[line] (nde.south) -- (qp.north);
+
+\end{tikzpicture}
+\end{frame}
+
+% CUE 9 | 0:40 | TSFM 모멘트 예측 및 양준정부호(PSD) 복원
+\begin{frame}{TSFM 제로샷 예측 및 양준정부호(PSD) 공분산 복원}
+\begin{columns}[T]
+  \begin{column}{0.48\textwidth}
+    \textbf{시계열 파운데이션 모델 (TSFM)}
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \small
+      \item \textbf{사전학습 가중치 제로샷 활용}:
+      Amazon Chronos (T5 아키텍처) 및 PatchTST 적용.
+      \item \textbf{RevIN (Reversible Normalization)}:
+      금융 시계열 비정상성 극복을 위해 입력 정규화 후 역변환.
+      \item 단일 점추정(Point forecast)이 아닌 \textbf{분위수 기반 1차·2차 모멘트 사전(Ex-ante) 추출}.
+    \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.48\textwidth}
+    \textbf{공분산 행렬 양준정부호(PSD) 보정}
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \small
+      \item 표본 공분산의 차원 저주 및 특이성(Singularity) 해결.
+      \item \textbf{Ledoit-Wolf 비선형 축소}:
+      구조화 타겟을 통한 조건수(Condition number) 안정화.
+      \item \textbf{Higham (2002) 교대 투영법}:
+      음(-)의 고유값을 잘라내어 양준정부호 대칭 행렬 완벽 복원 ($\hat{\boldsymbol{\Sigma}}_t \succ 0$).
+    \end{itemize}
+  \end{column}
+\end{columns}
+
+\vspace{3mm}
+\begin{block}{미래참조편향 (Look-ahead Bias) 원천 차단}
+  \small 모든 RevIN 모멘트와 추정치는 시점 $t$ 이전 관측치만으로 산출되며($\mathcal{F}_t$-가측성), 외표본 테스트에서 미래 데이터 주입 시 과거 가중치 불변성을 단위 테스트로 검증함.
+\end{block}
+\end{frame}
+
+% CUE 10 | 0:45 | NDE 심층 오토인코더 세이프가드
+\begin{frame}{산업 비파괴검사(NDE) 철학의 이식: 심층 오토인코더 세이프가드}
+\begin{columns}[T]
+  \begin{column}{0.50\textwidth}
+    \textbf{산업 비파괴검사(NDE)와 금융의 동형성}
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \small
+      \item \textbf{원자력·항공우주 NDE}: 99.9\% 정상 신호 속에서 시스템을 붕괴시키는 초미세 균열을 비지도 탐지.
+      \item \textbf{금융 꼬리위험}: 평시 데이터로 학습 불가능한 팻테일(Fat-tail) 시스템 위기를 사전 포착.
+    \end{itemize}
+    
+    \vspace{2mm}
+    \textbf{심층 오토인코더 메커니즘}
+    \begin{itemize}
+      \setlength{\itemsep}{3pt}
+      \small
+      \item 12차원 거시 상태 벡터 $\mathbf{x}_t$ 입력 ($12 \rightarrow 8 \rightarrow 4 \rightarrow 8 \rightarrow 12$).
+      \item 정상 시장 매니폴드 학습 (2015~2016 웜업 후 가중치 동결).
+      \item 재구성 오차: $e_t = \|\mathbf{x}_t - \hat{\mathbf{x}}_t\|_2^2$
+    \end{itemize}
+  \end{column}
+  
+  \begin{column}{0.48\textwidth}
+    \begin{block}{동적 리스크 버퍼링 수식}
+      \small
+      이상치 점수 EMA 평활화:
+      \begin{equation*}
+        S_t = \lambda_{\text{EMA}} S_{t-1} + (1-\lambda_{\text{EMA}}) e_t
+      \end{equation*}
+      동적 임계치 $\tau_t$ (롤링 95분위수) 돌파 시 비선형 감쇠 함수 가동:
+      \begin{equation*}
+        \beta_t = 
+        \begin{cases}
+          0 & (S_t \le \tau_t) \\
+          1 - \exp\left(-\kappa \frac{S_t - \tau_t}{\text{IQR}_t}\right) & (S_t > \tau_t)
+        \end{cases}
+      \end{equation*}
+      $\rightarrow$ 포트폴리오 자산을 즉각 미국 단기채/현금($\mathbf{e}_{\text{cash}}$)으로 자동 대피!
+    \end{block}
+  \end{column}
+\end{columns}
+\end{frame}
+
+% CUE 11 | 0:35 | 분석 데이터 및 백테스트 환경
+\begin{frame}{분석 데이터셋 및 백테스팅 규약}
+\begin{columns}[T]
+  \begin{column}{0.48\textwidth}
+    \textbf{자산 유니버스 (KRX 거래 가능 7대 자산)}
+    \begin{enumerate}
+      \setlength{\itemsep}{3pt}
+      \small
+      \item \textbf{KOSPI 200}: KODEX 200 (069500)
+      \item \textbf{KOSDAQ 150}: KODEX 코스닥 150 (229200)
+      \item \textbf{한국국채 10Y}: KOSEF 국고채 10년 (148070)
+      \item \textbf{S\&P 500}: SPY ETF (원화 환산)
+      \item \textbf{NASDAQ 100}: QQQ ETF (원화 환산)
+      \item \textbf{금 현물 (Gold)}: GLD ETF (원화 환산)
+      \item \textbf{미국 단기채 (Cash)}: SHV ETF (원화 환산)
+    \end{enumerate}
+  \end{column}
+  
+  \begin{column}{0.48\textwidth}
+    \textbf{백테스팅 규약 및 환경 설정}
+    \begin{itemize}
+      \setlength{\itemsep}{4pt}
+      \small
+      \item \textbf{표본 기간}: 2015.01 ~ 2026.08 (11년 8개월, 2,868 거래일)
+      \item \textbf{리밸런싱 주기}: 주간(Weekly) 정기 리밸런싱 + 세이프가드 수시 리밸런싱
+      \item \textbf{거래비용}: 왕복 10 bp (편도 5 bp 슬리피지/수수료) 기본 차감
+      \item \textbf{배당 처리}: 배당 재투자 총수익률(Total Return, TR) 기준
+      \item \textbf{벤치마크 3종}: 전통적 60/40, 동일가중(EW 1/N), 정적 마코위츠(MVO)
+    \end{itemize}
+  \end{column}
+\end{columns}
+\end{frame}
