@@ -68,7 +68,7 @@
   \small
   \begin{itemize}
     \item \textbf{수수료가 없을 때(0bp)}: 실데이터에서도 제안 모델은 연평균 복리수익률 \textbf{15.11\%}, 샤프 \textbf{1.16}으로 60/40(10.37\%) 대비 강력한 알파를 창출함.
-    \item \textbf{비용 증가 시}: 주간 재최적화에 따른 높은 연간 회전율(2,804\%)로 인해 거래비용 마찰이 가속되어 초과성과가 감소함 $\rightarrow$ 차기 연구에서 \textbf{회전율 제약 목적함수} 도입의 정당성 확보.
+    \item \textbf{비용 증가 시}: 주간 재최적화에 따른 높은 연간 회전율(2,804\%)로 인해 거래비용 마찰이 가속되어 초과성과가 감소함 $\rightarrow$ 차기 연구에서 \textbf{회전율 제약 목적함수} 도입의 정당성 확보 (탐색 분석: 백업 A8).
   \end{itemize}
 \end{block}
 \end{frame}
@@ -159,4 +159,11 @@
 \scriptsize
 \nocite{*}
 \bibliography{Mybib}
+\end{frame}
+
+% CUE A8 | Q&A 백업 (p.27): L1 회전율 페널티 탐색 분석 — 사전등록 외
+% Figure: alphaquant-tsfm-voldrag-empirical/scripts/generate_backup_slide27_chart.py
+\begin{frame}{[백업 A8] L1 회전율 페널티: 탐색 분석 (사전등록 외)}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]{MyFigure/backup_slide27_turnover_frontier.png}
 \end{frame}

@@ -158,9 +158,10 @@
     \begin{itemize}
       \setlength{\itemsep}{4pt}
       \small
-      \item \textbf{표본 기간}: 2015.01 ~ 2026.08 (11년 8개월, 2,868 거래일)
+      \item \textbf{표본 기간}: 2015.01 ~ 2026.08 (11년 8개월; 제출본 2,868 거래일, 실데이터 2,830 거래일)
+      \item \textbf{실데이터 핵심 평가}: 2017.01 ~ 2026.08 (모든 구성요소 완전 표본외)
       \item \textbf{리밸런싱 주기}: 주간(Weekly) 정기 리밸런싱 + 세이프가드 수시 리밸런싱
-      \item \textbf{거래비용}: 왕복 10 bp (편도 5 bp 슬리피지/수수료) 기본 차감
+      \item \textbf{거래비용}: 제출본 왕복 10 bp(편도 5 bp) / 실데이터 매매 금액당 10 bp ($= 10\,\mathrm{bp}\times\sum|\Delta w|$, 민감도 0·20 bp)
       \item \textbf{배당 처리}: 배당 재투자 총수익률(Total Return, TR) 기준
       \item \textbf{벤치마크 3종}: 전통적 60/40, 동일가중(EW 1/N), 정적 마코위츠(MVO)
     \end{itemize}

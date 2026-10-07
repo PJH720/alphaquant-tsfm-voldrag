@@ -57,10 +57,14 @@
     \centering
     \includegraphics[width=\linewidth]{MyFigure/drag_vs_sigma.pdf}
     \vspace{-2mm}
-    \begin{exampleblock}{자산별 실측 검증 (<표 1-A>)}
+    \begin{exampleblock}{KOSDAQ 150 항력 검증: 제출본 vs 실데이터}
       \scriptsize
-      \textbf{KOSDAQ 150} ($\sigma=24.53\%$): 산술 4.21\% $\rightarrow$ 기하 1.21\%\\
-      실측 항력 $3.00\%p$ $\approx$ 이론치 $\frac{1}{2}\sigma^2 = 3.01\%p$ (완벽 일치)
+      \begin{tabular}{@{}lccc@{}}
+        & $\sigma$ & 실측 항력 & $\frac{1}{2}\sigma^2$ \\
+        \textbf{제출본} <표 1-A> & 24.53\% & 3.00\%p & 3.01\%p \\
+        \textbf{사전등록 실데이터} & 30.47\% & 4.63\%p & 4.64\%p \\
+      \end{tabular}\\
+      실데이터 7개 자산 최대 $|\Delta| = 0.014\%p$ (2015.01$\sim$2026.08)
     \end{exampleblock}
   \end{column}
 \end{columns}
