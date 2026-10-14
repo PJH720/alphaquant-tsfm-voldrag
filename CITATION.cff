@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this research or code, please cite it as below."
+title: "이토 보조정리와 시계열 파운데이션 모델(TSFM)을 결합한 동적 자산배분 및 변동성 항력(Volatility Drag) 제어 프레임워크: 산업 비파괴검사 기반 비지도 꼬리위험 세이프가드를 중심으로"
+authors:
+  - family-names: "박"
+    given-names: "재현"
+    affiliation: "서강대학교 경제학과"
+    email: "pjhlemont@gmail.com"
+  - family-names: "강"
+    given-names: "명서"
+    affiliation: "서강대학교 경제학과"
+year: 2026
+conference:
+  name: "2026 연합 경제 학술제 (서강대학교 · 성균관대학교 · 이화여자대학교)"
+repository-code: "https://github.com/PJH720/alphaquant-tsfm-voldrag"
+url: "https://alphaquant-voldrag-demo.vercel.app"
+keywords:
+  - volatility-drag
+  - ito-lemma
+  - time-series-foundation-models
+  - portfolio-optimization
+  - kelly-criterion
+  - non-destructive-evaluation
+  - quantitative-finance
+license: "MIT"

@@ -1,0 +1,124 @@
+{
+  "metadata": {
+    "nature": "GBM Monte Carlo from simulation parameters; NOT a historical backtest",
+    "source_parameters": "data/backtest_results.json:table_4_1_strategy_performance",
+    "seed": 20261007,
+    "n_paths": 10000,
+    "n_days": 2868,
+    "years": 11.381,
+    "risk_free_pct": 2.0,
+    "shocks": "iid N(0,1), independent across strategies",
+    "growth_definition": "annualized log growth = ln(W_T/W_0)/T, compare to mu - 0.5*sigma^2"
+  },
+  "strategies": {
+    "전통적 60/40": {
+      "mu_arith_pct": 8.51,
+      "sigma_pct": 11.45,
+      "paper_cagr_pct": 7.85,
+      "theoretical_g_pct": 7.8545,
+      "theoretical_drag_pct": 0.6555,
+      "mc_g_mean_pct": 7.9284,
+      "mc_g_se_pct": 0.0335,
+      "mc_g_p05_pct": 2.3451,
+      "mc_g_p50_pct": 7.9305,
+      "mc_g_p95_pct": 13.4083,
+      "wealth_10y": {
+        "unit": "억원 (principal 100)",
+        "ensemble_mean": 235.69,
+        "median_typical_path": 221.57,
+        "p05": 121.84,
+        "p95": 397.22,
+        "analytic_ensemble_mean": 234.2,
+        "analytic_median": 219.34
+      },
+      "mdd_p50_pct": -21.0845,
+      "mdd_p05_pct": -33.8619,
+      "sharpe_p50": 0.574,
+      "sharpe_p05": 0.087,
+      "sharpe_p95": 1.057
+    },
+    "동일가중 (EW 1/N)": {
+      "mu_arith_pct": 9.25,
+      "sigma_pct": 12.86,
+      "paper_cagr_pct": 8.42,
+      "theoretical_g_pct": 8.4231,
+      "theoretical_drag_pct": 0.8269,
+      "mc_g_mean_pct": 8.4098,
+      "mc_g_se_pct": 0.0379,
+      "mc_g_p05_pct": 2.1271,
+      "mc_g_p50_pct": 8.3917,
+      "mc_g_p95_pct": 14.6155,
+      "wealth_10y": {
+        "unit": "억원 (principal 100)",
+        "ensemble_mean": 251.75,
+        "median_typical_path": 231.63,
+        "p05": 119.01,
+        "p95": 451.58,
+        "analytic_ensemble_mean": 252.19,
+        "analytic_median": 232.17
+      },
+      "mdd_p50_pct": -23.8216,
+      "mdd_p05_pct": -38.3576,
+      "sharpe_p50": 0.56,
+      "sharpe_p05": 0.075,
+      "sharpe_p95": 1.049
+    },
+    "마코위츠 MVO": {
+      "mu_arith_pct": 10.02,
+      "sigma_pct": 13.28,
+      "paper_cagr_pct": 9.14,
+      "theoretical_g_pct": 9.1382,
+      "theoretical_drag_pct": 0.8818,
+      "mc_g_mean_pct": 9.1299,
+      "mc_g_se_pct": 0.0395,
+      "mc_g_p05_pct": 2.6459,
+      "mc_g_p50_pct": 9.1158,
+      "mc_g_p95_pct": 15.6261,
+      "wealth_10y": {
+        "unit": "억원 (principal 100)",
+        "ensemble_mean": 272.2,
+        "median_typical_path": 248.63,
+        "p05": 124.73,
+        "p95": 496.83,
+        "analytic_ensemble_mean": 272.37,
+        "analytic_median": 249.38
+      },
+      "mdd_p50_pct": -24.1967,
+      "mdd_p05_pct": -38.9132,
+      "sharpe_p50": 0.601,
+      "sharpe_p05": 0.115,
+      "sharpe_p95": 1.092
+    },
+    "제안 모델 (TSFM-Itô)": {
+      "mu_arith_pct": 15.11,
+      "sigma_pct": 7.63,
+      "paper_cagr_pct": 14.82,
+      "theoretical_g_pct": 14.8189,
+      "theoretical_drag_pct": 0.2911,
+      "mc_g_mean_pct": 14.7809,
+      "mc_g_se_pct": 0.0227,
+      "mc_g_p05_pct": 11.0714,
+      "mc_g_p50_pct": 14.7884,
+      "mc_g_p95_pct": 18.5412,
+      "wealth_10y": {
+        "unit": "억원 (principal 100)",
+        "ensemble_mean": 451.55,
+        "median_typical_path": 437.87,
+        "p05": 293.85,
+        "p95": 654.34,
+        "analytic_ensemble_mean": 453.13,
+        "analytic_median": 440.13
+      },
+      "mdd_p50_pct": -8.6211,
+      "mdd_p05_pct": -13.0098,
+      "sharpe_p50": 1.713,
+      "sharpe_p05": 1.226,
+      "sharpe_p95": 2.208
+    }
+  },
+  "proposed_vs_mvo": {
+    "proposed": "제안 모델 (TSFM-Itô)",
+    "mvo": "마코위츠 MVO",
+    "share_paths_proposed_growth_higher": 0.8954
+  }
+}

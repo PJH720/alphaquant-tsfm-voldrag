@@ -1,0 +1,50 @@
+# Private & Sensitive Research IP (DO NOT COMMIT)
+paper/
+docs/
+audit/
+archive/
+out/
+_local/
+CLAUDE.md
+scripts/build_*.py
+scripts/build_*.sh
+scripts/package_submission.py
+scripts/verify_integrity.py
+
+# LaTeX slide sources & internal scripts
+slides/*.tex
+slides/*.bib
+slides/*.aux
+slides/*.bbl
+slides/*.blg
+slides/*.log
+slides/*.nav
+slides/*.out
+slides/*.snm
+slides/*.toc
+slides/Section/
+slides/generate_scripts_and_notes.py
+
+# Office / binary deliverables
+*.docx
+*.doc
+*.pdf
+*.pptx
+*.zip
+*.png
+*.jpg
+*.jpeg
+~$*
+
+# Whitelist slide figure assets for README
+!slides/MyFigure/*.png
+
+# Tool & OS state
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.omc/
+.remember/
+.obsidian/
+pdf_to_pptx.py
